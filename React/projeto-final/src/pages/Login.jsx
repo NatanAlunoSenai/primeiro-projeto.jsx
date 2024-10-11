@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Container from 'react-bootstrap/esm/Container';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
@@ -10,10 +10,9 @@ import { useState, useEffect} from 'react';
 const url = "http://localhost:5000/usuarios"
 
 const Login = () => {
-  //variaveis
-  const [nome, setNome] = useState("")
-  const [email, setEmail] = useState("")
-  const [senha, setSenha] = useState("")
+  //variaveis pro usuario
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
  
 
   //variaveis pro alerta
@@ -25,21 +24,19 @@ const Login = () => {
   const [usuarios, setUsuarios]= useState([])
 
   //Resgate de dados da API
-  useEffect(() => 
+  useEffect(() => {
     async function fetchData() {
-      
-    
     try{
-      const res = await fetch(url)
-      const users = await res.json()
-      setUsuarios(users)
-    }
-    catch(error){
-      console.log(error.message)
+      const res = await fetch(url);
+      const users = await res.json();
+      setUsuarios(users);
+    }catch(error){
+      console.log(error.message);
     }
    }
    fetchData();
    console.log(usuarios);
+
 }, []);
 
    const gravarLocalStorage = (usuario) =>{
@@ -48,67 +45,46 @@ const Login = () => {
    }
 
    const handleLogin = async (e) =>
-    e.preventDefault()
+    e.preventDefault();
 
-   const user = {email,senha}
+   const user = {email,senha};
 
+   //Verifica na lista de usuarios se tem o usuario digitado
    const userToFind = usuarios.find(
-    (userFind) =>userFind.email == user.email
+    (userFind) => userFind.email == user.email
   )
 
    if(email !=""){
-   
     if(senha !=""){
       if(userToFind != undefined && userToFind.senha == senha){
        console.log(userToFind)
        console.log("Entrou")
        setAlertaClass("mb-3")
        gravarLocalStorage(userToFind)
-       alert("Login efetuado com sucesso")
-       setAlertaMensagem("Login efetuado com sucesso")
-       setAlertaVariant("sucess")
-       alert("Login efetuado com Sucesso")
-
-
+       alert("Login efetuado com sucesso");
+       setAlertaMensagem("Login efetuado com sucesso");
+       setAlertaVariant("sucess");
       }else{
-        setAlertaClass("mb-3")
-        setAlertaMensagem("Usuário ou senha inválidos")
+        setAlertaClass("mb-3");
+        setAlertaMensagem("Usuário ou senha inválidos");
       }
-
-    }
-    else{
-      setAlertaClass("mb-3")
-      setAlertaMensagem("O campo senha não pode ser vazio")
+    }else{
+      setAlertaClass("mb-3");
+      setAlertaMensagem("O campo senha não pode ser vazio");
      } 
-
-    }
-    else{
-      setAlertaClass("mb-3")
-    }
-
+    }else{
+      setAlertaClass("mb-3");
+      setAlertaMensagem("O campo senha não pode ser vazio");
     
+  };
+
   return (
     <div>
         <Container>
-        <span class="material-symbols-out-lined"
-               style={{ fontSize:"100px"}}>
-                login
-               </span>
+        <span class="material-symbols-out-lined" style={{ fontSize:"100px"}}>
+          login
+        </span>
         <form onSubmit={handleLogin}>
-        {/*Caixinha do nome */}
-        <FloatingLabel
-        controlId="floatingInputName"
-        label="Nome"
-        className="mb-3"
-      >
-        <Form.Control type="text" placeholder="Digite seu nome" 
-        value={nome}
-        onChange={(e) => {
-            setNome(e.target.value);
-        }}
-        ></Form.Control>
-        </FloatingLabel>
-         
         {/*Caixinha do email */}
         <FloatingLabel
         controlId="floatingInputEmail"
@@ -120,48 +96,41 @@ const Login = () => {
         onChange={(e) => {
             setEmail(e.target.value);
         }}/>
-      </FloatingLabel>
+        </FloatingLabel>
 
       {/*Caixinha da senha */}
-      <FloatingLabel controlId="floatingPassword"
+      <FloatingLabel 
+       controlId="floatingPassword"
        label="Senha"
        className='mb-3'>
-        <Form.Control type="password" placeholder="Password" />
+        
+        <Form.Control
+         type="password" 
+         placeholder="Password" 
+         value={senha}
+         onChange={(e)=>{
+          setSenha(e.target.value);
+         }}
+         />
       </FloatingLabel>
 
-      <FloatingLabel controlId="floatingPassword" label="Password">
-        <Form.Control type="password" placeholder="Password" />
-      </FloatingLabel>
-
-      {/*Caixinha da confirmação da senha */}
-      
-      <FloatingLabel controlId="floatingPassword" label="Confirme a senha">
-        <Form.Control type="password" placeholder="Password" />
-      </FloatingLabel>
-
-      <FloatingLabel controlId="floatingPassword" label="Password">
-        <Form.Control type="password" placeholder="Password" />
-      </FloatingLabel>
 
       <Alert key="danger"  variant="{alertVariant}" className={alertaClass}>
       {alertaMensagem}
       </Alert>
 
-         <Button 
-         variant="primary">
+         <Button  variant="primary" type="Submit">
             Login
-         </Button>{' '}
+         </Button>
          </form>
 
-         <p>Não tem cadastro?
-            <Nav.Link href='/login'>
-                Login
-            </Nav.Link>
+         <p>
+          Não tem cadastro?
+         <Nav.Link href="/Cadastro">Cadastrar-se</Nav.Link>
          </p>
       </Container>
-      
     </div>
   )
 }
 
-export default Cadastro
+export default Login

@@ -4,7 +4,23 @@
             "id": 1,
             "nome":"principal",
             "email":"principal@gmail.com",
-            "senha":"1234"
+            "senha":"1254",
+            "tipo": "Administrador"
+        },
+
+        {
+            "id": 2,
+            "nome":"Natan",
+            "email":"natan@gmail.com",
+            "senha":"1234",
+            "tipo": "Administrador"
+        },
+        {
+            "id": "0bea",
+            "nome":"Igor",
+            "email":"igor@gmail.com",
+            "senha":"ig4",
+            "tipo": "Administrador"
         }
     ]
 }

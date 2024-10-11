@@ -1,0 +1,26 @@
+{
+    "produtos" : [
+        {
+            "id": 1,
+            "nome":"",
+            "email":"principal@gmail.com",
+            "senha":"1254",
+            "tipo": "Administrador"
+        },
+
+        {
+            "id": 2,
+            "nome":"",
+            "email":"",
+            "senha":"1234",
+            "tipo": "Administrador"
+        },
+        {
+            "id": "0bea",
+            "nome":"Igor",
+            "email":"igor@gmail.com",
+            "senha":"ig4",
+            "tipo": "Administrador"
+        }
+    ]
+}

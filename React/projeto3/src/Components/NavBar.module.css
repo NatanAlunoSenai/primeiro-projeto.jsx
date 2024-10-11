@@ -1,0 +1,18 @@
+nav{
+    display: flex;
+    justify-content: center;
+}
+nav a{
+    margin: 0 10px;
+    padding: 5px;
+    text-decoration: none;
+    color: blue;
+}
+nav a:hover{
+    color: red;
+}
+
+.active{
+    background-color: black;
+    color: aliceblue;
+}

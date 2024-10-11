@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Container from 'react-bootstrap/esm/Container';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
@@ -20,45 +20,43 @@ const Cadastro = () => {
 
   //variaveis pro alerta
   const [alertClass, setAlertaClass] = useState("mb-3 d-none")
-  const [alertaMensagem, setAlertMensagem] = useState("");
+  const [alertaMensagem, setAlertaMensagem] = useState("");
 
   const navigate = useNavigate()
 
   const handleSubmit = async(e) =>{
-    e.preventDefault()
-    console.log("Cliquei")
-    if(!nome == ""){
+    e.preventDefault();
+    console.log("Cliquei");
+    if (!nome == "") {
+      if (!email == "") {
+        if (!senha == "" && !confirmaSenha == "" && senha === confirmaSenha) {
+          console.log("entrei");
+          const user = { nome, email, senha };
+          const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user),
+          });
 
-      if(!email == ""){
-      
-        if(!senha == "" && !confirmaSenha == "" && senha === confirmaSenha){
-         console.log("Entrei")
-        const user = {nome,email,senha}
-        const res = await fetch(url, {
-          method:"POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify(user)
-        })
-        alert("Usuário cadastrado com sucesso")
-        setNome("")
-        setEmail("")
-        setSenha("")
-        setConfirmaSenha("")
-        navigate("/login")
+          alert("Usuário cadastrado com sucesso");
+          setNome("");
+          setEmail("");
+          setSenha("");
+          setConfirmaSenha("");
+          navigate("/login");
+        } else {
+          setAlertaClass("mb-3");
+          setAlertaMensagem("As senhas não são iguais");
         }
-
-    } else{
-      setAlertaClass("mb-3");
-      setAlertaMensagem("O campo email não pode ser vazio");
+      } else {
+        setAlertaClass("mb-3");
+        setAlertaMensagem("O campo email não pode ser vazio");
       }
-    } else{
+    } else {
       setAlertaClass("mb-3");
       setAlertaMensagem("O campo nome não pode ser vazio");
-    } else{
-    setAlertaClass("mb-3");
-    setAlertaMensagem("As senhas não são iguais");
-  }
-}}
+    }
+};
 
 
   return (
@@ -75,12 +73,14 @@ const Cadastro = () => {
         label="Nome"
         className="mb-3"
       >
-        <Form.Control type="text" placeholder="Digite seu nome" 
+        <Form.Control 
+        type="text" 
+        placeholder="Digite seu nome" 
         value={nome}
         onChange={(e) => {
-            setNome(e.target.value);
+          setNome(e.target.value);
         }}
-        ></Form.Control>
+        />
         </FloatingLabel>
          
         {/*Caixinha do email */}
@@ -93,34 +93,48 @@ const Cadastro = () => {
         value={email}
         onChange={(e) => {
             setEmail(e.target.value);
-        }}/>
+        }}
+        />
       </FloatingLabel>
 
       {/*Caixinha da senha */}
-      <FloatingLabel controlId="floatingPassword"
+      <FloatingLabel 
+      controlId="floatingPassword"
        label="Senha"
-       className='mb-3'>
-        <Form.Control type="password" placeholder="Password" />
+       className='mb-3'
+       >
+        <Form.Control type="password" 
+        placeholder="Password" 
+        value={senha}
+        onChange={(e) => {
+          setSenha(e.target.value);
+        }}
+        />
       </FloatingLabel>
-
-      
 
       {/*Caixinha da confirmação da senha */}
-      
-      <FloatingLabel controlId="floatingPassword" label="Confirme a senha">
-        <Form.Control type="password" placeholder="Password" />
+      <FloatingLabel 
+       controlId="floatingPassword" 
+       label="Confirme a senha"
+       className="mb-3"
+       >
+        <Form.Control 
+        type="password" 
+        placeholder="Password" 
+        value={confirmaSenha}
+        onChange={(e) => {
+          setConfirmaSenha(e.target.value);
+        }}
+        />
       </FloatingLabel>
-
-    
 
       <Alert key="danger"  variant="danger" className={alertClass}>
       {alertaMensagem}
       </Alert>
 
-         <Button 
-         variant="primary" type="submit">
-            Cadastrar
-         </Button>{' '}
+     <Button variant="primary" type="submit">
+          Cadastrar
+         </Button>
          </form>
 
          <p>Não tem cadastro?
@@ -130,5 +144,6 @@ const Cadastro = () => {
     </div>
   );
 };
+
 
 export default Cadastro

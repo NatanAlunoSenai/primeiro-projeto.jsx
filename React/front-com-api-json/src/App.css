@@ -1,0 +1,50 @@
+.App {
+ text-align: center;
+ display: flex;
+ flex-direction: row;
+ justify-content: space-around;
+}
+
+li{
+  list-style-type: none;
+}
+
+.add-aluno{
+  display: flex;
+  flex-direction: column;
+  border: 5px solid purple;
+  background-color: aquamarine;
+  width: 50%;
+  height: 95vh;
+}
+
+.lista-alunos{
+  border: 5px solid rgb(5, 182,252);
+  background-color: skyblue;
+  width: 50%;
+  height: 95vh;
+}
+
+form{
+  width: 100%;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center;
+}
+
+form input{
+  width: 200px;
+  display: flex;
+  flex-direction:column;
+  margin-bottom: 10px;
+}
+
+.btn{
+  width: 100px;
+}
+
+.tabela-alunos{
+  width: 30%;
+  height: 95vh;
+}
